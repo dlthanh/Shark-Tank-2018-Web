@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10 Startup được cộng đồng quan tâm nhất Shark Tank 2018</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/slimscroll.js"></script>
+    <script>
+        $(function() {
+            var sharktank = new Swiper('.stw-container', {
+                speed: 600,
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                mousewheel: {
+                    invert: false,
+                },
+                on: {
+                    slideChangeTransitionStart: function() {
+                        $('.stw-item').eq(sharktank.activeIndex).find('.animate').addClass('aos-init').addClass('aos-animate');
+                    },
+                    slideChangeTransitionEnd: function() {
+                        $('.stw-item').eq(sharktank.previousIndex).find('.animate').removeClass('aos-init').removeClass('aos-animate');
+                    }
+                }
+            });
+            new AOS.init();
+
+            $('.stw-item').not(':eq('+ sharktank.activeIndex +')').find('.animate').removeClass('aos-init').removeClass('aos-animate');
+
+            $('.stw-content').hover(function() {
+                sharktank.mousewheel.disable();
+                sharktank.allowTouchMove = false;
+            }, function() {
+                sharktank.mousewheel.enable();
+                sharktank.allowTouchMove = true;
+            })
+
+            $('.stwc-main').slimScroll({
+                height: '90%',
+                alwaysVisible: true,
+                railVisible: true,
+                railColor: '#011f58',
+                railOpacity: 1,
+                color: '#00519c'
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="sharktank-wrapper">
+        <div class="stw-container swiper-container">
+            <div class="swiper-wrapper">
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <div class="stw-main">
+                            <img src="images/title.png" alt="" class="stw-img-full animate" data-aos="fade-left" data-aos-duration="1000">
+                            <img src="images/logo.png" alt="" class="stw-img-full abs-bottom animate" data-aos="fade" data-aos-duration="1000">
+
+                            <div class="stw-cover">
+                                <img src="images/cover-10.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="2000" data-aos-delay="1600">
+                                <img src="images/cirle-4.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="2000" data-aos-delay="1300">
+                                <img src="images/cover-9.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="2000" data-aos-delay="1000">
+                                <img src="images/cover-8.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1500" data-aos-delay="1900">
+                                <img src="images/cover-7.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1500" data-aos-delay="1600">
+                                <img src="images/cirle-5.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1500" data-aos-delay="1300">
+                                <img src="images/cover-6.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1500" data-aos-delay="1000">
+                                <img src="images/cover-5.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1900">
+                                <img src="images/cirle-1.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="2000">
+                                <img src="images/cover-4.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1700">
+                                <img src="images/cirle-2.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1100">
+                                <img src="images/cover-2.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1100">
+                                <img src="images/cover-3.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1400">
+                                <img src="images/cirle-3.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="1100">
+                                <img src="images/cover-1.png" alt="" class="stw-img-full abs-top animate" data-aos="fade" data-aos-duration="1000" data-aos-delay="800">
+                            </div>
+                        </div>
+
+                        <img src="images/cover-bottom.png" alt="" class="stw-img-full abs-bottom">
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-1.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Ohana - Cathy thảo trần</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-shark">
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="images/shark-dung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Mạnh Dũng</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="images/shark-honganh.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Đặng Hồng Anh</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Nữ CEO xinh đẹp và “ngây thơ” là điều đầu tiên tạo nên sự chú ý của cộng đồng.</p>
+                                        <p><em>“Khi mọi người tiếp xúc mình lần đầu tiên, họ sẽ ấn tượng: Ơ sao con bé này không biết gì. Nhưng sau khi làm việc với mình một thời gian, họ sẽ hiểu được đây là một lợi thế rất đặc biệt trong startup. Bởi vì trong startup bạn luôn luôn phải tìm hướng đi mới, khác lối mòn tư duy cũ”</em></p>
+                                        <p><strong>Cathy Thảo Trần</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>“Nhìn em là anh thích đầu tư rồi, nhưng nhìn mô hình kinh doanh anh không thích đầu tư. Về mô hình kinh doanh này, anh khẳng định luôn là em sẽ thất bại”</em></p>
+                                        <p><strong>Shark Phú</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Ohana là ứng dụng chạy trên nền tảng di động, website, chuyên kết nối người thuê nhà và chủ nhà cho thuê. Đa số khách thuê nhà có mức chi trả dao động 1,5 – 4 triệu đồng/người/tháng. Khách hàng đồng ý thuê sẽ gửi tiền cọc tới Ohana và công ty chiết khấu 30% trước khi đưa cho chủ nhà.</p>
+                                        <p>Khi tham gia Shark Tank, Ohana có 40.000 người dùng, trong đó 5.000 người đã thuê nhà thông qua hệ thống. Trung bình tốc độ tăng trưởng hàng tháng là 40%. Số lượng người quay lại sử dụng dịch vụ lần thứ hai khoảng 30%/quý. Mỗi tháng, ứng dụng cập nhật tầm 400 căn nhà mới. Tuy nhiên, công ty vẫn chưa có doanh thu.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Cathy Thảo Trần tên thật là Trần Phan Thanh Thảo, 26 tuổi, từng là sinh viên ngành Văn học, tốt nghiệp bằng Cử nhân Văn học Anh tại Cao đẳng Agnes Scott. Sau 2 năm du học tại Úc và 7 năm sinh sống, làm việc tại Mỹ, Cathy Thảo Trần quyết định quay trở lại Việt Nam lập nghiệp.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Shark đầu tư</div>
+                                        <p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Cintra';
+    src: url('../fonts/SVN-Cintra.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Kelson';
+    src: url('../fonts/SVN-KelsonSansRegular.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Kelson';
+    src: url('../fonts/SVN-KelsonSansBold.otf') format('opentype');
+    font-weight: 700;
+}
