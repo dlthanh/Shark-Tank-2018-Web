@@ -16,7 +16,7 @@
     <script src="js/aos.js"></script>
     <script src="js/slimscroll.js"></script>
     <script>
-        $(function() {
+        $(document).ready(function(){
             var sharktank = new Swiper('.stw-container', {
                 speed: 600,
                 effect: 'fade',
@@ -29,6 +29,42 @@
                 on: {
                     slideChangeTransitionStart: function() {
                         $('.stw-item').eq(sharktank.activeIndex).find('.animate').addClass('aos-init').addClass('aos-animate');
+                        $('.stwc-main').each(function() {
+                            var wrapper = $('.stw-content'),
+                                title   = $(this).parent('.stw-content').find('.stw-title');
+                            var contentHeigh = wrapper.height() - parseInt(wrapper.css('padding-top')) - title.outerHeight();
+                            $(this).slimScroll({
+                                height: contentHeigh + 'px',
+                                alwaysVisible: true,
+                                railVisible: true,
+                                railColor: '#011f58',
+                                railOpacity: 1,
+                                color: '#00519c'
+                            })
+                        });
+
+                        if(sharktank.activeIndex == 0) {
+                            nav.fadeOut();
+                        } else {
+                            nav.fadeIn(600);
+                            nav.find('.stwn-item').removeClass('active');
+                            nav.find('.stwn-item').eq(sharktank.activeIndex - 1).addClass('active');
+                        }
+
+                        var navigator = new Swiper('.stw-nav .swiper-container', {
+                            speed: 600,
+                            direction: 'vertical',
+                            navigation: {
+                                nextEl: '.stwn-next',
+                                prevEl: '.stwn-prev'
+                            }
+                        })
+
+                        if(sharktank.activeIndex >= 6) {
+                            navigator.slideTo(1, 600)
+                        } else {
+                            navigator.slideTo(0, 600)
+                        }
                     },
                     slideChangeTransitionEnd: function() {
                         $('.stw-item').eq(sharktank.previousIndex).find('.animate').removeClass('aos-init').removeClass('aos-animate');
@@ -45,16 +81,27 @@
             }, function() {
                 sharktank.mousewheel.enable();
                 sharktank.allowTouchMove = true;
+            });
+
+            var nav = $('.stw-nav'),
+                frame = $('.stw-main');
+            nav.hide();
+            nav.css({
+                'height': frame.height(),
+                'right': ($(window).width() - frame.width()) / 2,
+                'top': ($(window).height() - frame.height()) / 2 + 25
+            });
+
+            $('.stwn-item').click(function() {
+                sharktank.slideTo($(this).index() + 1, 600);
             })
 
-            $('.stwc-main').slimScroll({
-                height: '90%',
-                alwaysVisible: true,
-                railVisible: true,
-                railColor: '#011f58',
-                railOpacity: 1,
-                color: '#00519c'
-            });
+            $('.stwn-next').click(function() {
+                navigator.slideTo(1, 600);
+            })
+            $('.stwn-prev').click(function() {
+                navigator.slideTo(0, 600);
+            })
         })
     </script>
 </head>
@@ -88,6 +135,7 @@
                         </div>
 
                         <img src="images/cover-bottom.png" alt="" class="stw-img-full abs-bottom">
+                        <img src="images/credit.png" alt="" class="stw-img-full abs-bottom stw-credit">
                     </div>
                 </div>
 
@@ -106,7 +154,7 @@
                                     <div class="stw-shark">
                                         <div class="stws-item">
                                             <div class="stwsi-avata">
-                                                <img src="images/shark-dung.png" alt="">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-dung.png" alt="">
                                             </div>
 
                                             <div class="stwsi-content">
@@ -117,7 +165,7 @@
 
                                         <div class="stws-item">
                                             <div class="stwsi-avata">
-                                                <img src="images/shark-honganh.png" alt="">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-honganh.png" alt="">
                                             </div>
 
                                             <div class="stwsi-content">
@@ -130,6 +178,7 @@
                                     <div class="stw-detail">
                                         <div class="swtd-subtitle">Điểm nhấn của startup</div>
                                         <p>Nữ CEO xinh đẹp và “ngây thơ” là điều đầu tiên tạo nên sự chú ý của cộng đồng.</p>
+                                        <br />
                                         <p><em>“Khi mọi người tiếp xúc mình lần đầu tiên, họ sẽ ấn tượng: Ơ sao con bé này không biết gì. Nhưng sau khi làm việc với mình một thời gian, họ sẽ hiểu được đây là một lợi thế rất đặc biệt trong startup. Bởi vì trong startup bạn luôn luôn phải tìm hướng đi mới, khác lối mòn tư duy cũ”</em></p>
                                         <p><strong>Cathy Thảo Trần</strong></p>
 
@@ -143,6 +192,7 @@
 
                                         <div class="swtd-subtitle">Startup có gì?</div>
                                         <p>Ohana là ứng dụng chạy trên nền tảng di động, website, chuyên kết nối người thuê nhà và chủ nhà cho thuê. Đa số khách thuê nhà có mức chi trả dao động 1,5 – 4 triệu đồng/người/tháng. Khách hàng đồng ý thuê sẽ gửi tiền cọc tới Ohana và công ty chiết khấu 30% trước khi đưa cho chủ nhà.</p>
+                                        <br />
                                         <p>Khi tham gia Shark Tank, Ohana có 40.000 người dùng, trong đó 5.000 người đã thuê nhà thông qua hệ thống. Trung bình tốc độ tăng trưởng hàng tháng là 40%. Số lượng người quay lại sử dụng dịch vụ lần thứ hai khoảng 30%/quý. Mỗi tháng, ứng dụng cập nhật tầm 400 căn nhà mới. Tuy nhiên, công ty vẫn chưa có doanh thu.</p>
 
                                         <br />
@@ -160,7 +210,669 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-2.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Bống chè bưởi - Bảo ngọc</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-shark">
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-thuy.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Ngọc Thủy</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-hung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Phạm Thanh Hưng</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>11 tuổi, Bảo Ngọc (Bống) là Startup nhỏ tuổi nhất tham gia Shark Tank tính đến hiện tại.</p>
+                                        <br />
+                                        <p><em>“Con đường con chọn có nhiều thứ đặc biệt mà các bạn bình thường không thể nào có thể trải nghiệm được. Từ khi bắt đầu, con thấy là sau này nếu muốn trở thành như các Shark ở đây thì rất khó khăn và cũng phải trải qua rất nhiều thứ cho nên con cũng đã biết con sẽ trải qua rất nhiều lần thất bại.”</em></p>
+                                        <p><strong>Bống chè Bưởi</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>"Chè bưởi không có rủi ro, khả năng mất vốn rất thấp, nhưng điều quan trọng hơn là con học tập được gì từ cái này, con trở thành ai sau 10, 20 năm nữa mới là cái quan trọng."</em></p>
+                                        <p><strong>Shark Thủy</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Bống bắt đầu bán chè từ năm 7 tuổi. Em bán chè qua kênh Facebook, khách hàng chủ yếu là người quen quanh nhà và chỉ tại thành phố Tuyên Quang. Mẹ Bống đang là đại diện pháp luật của công ty.</p>
+                                        <br />
+                                        <p>Mỗi ngày, Bống bán khoảng 100 cốc chè.</p>
+
+                                        <!--<br />-->
+
+                                        <!--<div class="swtd-subtitle">Lãnh đạo</div>-->
+                                        <!--<p>Cathy Thảo Trần tên thật là Trần Phan Thanh Thảo, 26 tuổi, từng là sinh viên ngành Văn học, tốt nghiệp bằng Cử nhân Văn học Anh tại Cao đẳng Agnes Scott. Sau 2 năm du học tại Úc và 7 năm sinh sống, làm việc tại Mỹ, Cathy Thảo Trần quyết định quay trở lại Việt Nam lập nghiệp.</p>-->
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Shark đầu tư</div>
+                                        <p>Shark Thủy đầu tư 200 triệu lấy 20%, Shark Hưng đầu tư 100 triệu đổi lấy 10%. Tổng cộng 2 Shark đầu tư 300 triệu đổi lấy 30% cổ phần. Shark Thủy kèm theo học bổng 500 triệu cho bé Bống nhưng với điều kiện bé sẽ làm đại diện thương hiệu cho Apax Leaders.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-3.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Công nghệ Plasma - <br /> Hoàng Tùng & Thế Anh</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-shark">
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-viet.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Thanh Việt</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-hung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Phạm Thanh Hưng</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>CTCP Công nghệ Plasma Việt Nam cung cấp sản phẩm ứng dụng công nghệ Plasma lạnh hỗ trợ điều trị lành vết thương, thay vì sử dụng thuốc kháng sinh như y học hiện nay. Đây được đánh giá là công nghệ Y học của tương lai.</p>
+                                        <br />
+                                        <p><em>"Plasma đã tát nước ra khỏi ao, giờ chỉ việc bắt cá"</em></p>
+                                        <p><strong>Thế Anh, nhà sáng lập.</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>“Nếu các bạn làm kinh doanh, nhân loại mất đi một nhà khoa học giỏi và có thêm một nhà kinh doanh tồi”</em></p>
+                                        <p><strong>Shark Hưng</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Công ty Plasma Việt Nam được thành lập từ năm 2015 với 4 nhà đồng sáng lập. Với giá bán 700 triệu mỗi máy, khi đến gọi vốn ở Shark Tank, startup này mới chỉ mới chính thức bán được hai sản phẩm. Nhà sáng lập Thế Anh cho biết hơn 70 sản phẩm của Plasma đang được gửi cho các bệnh viện dùng thử miễn phí, còn khoảng 30 máy tồn kho đợi bán.</p>
+                                        <br />
+                                        <p>Theo báo cáo tài chính gần nhất, công ty đang lỗ 2,1 tỷ đồng. Doanh thu dự kiến năm 2018 là 15-20 tỷ đồng và dự tính sau 3 năm sẽ thu hồi được vốn.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Một trong 4 nhà đồng sáng lập là Tiến sĩ Đỗ Hoàng Tùng. Hoàng Tùng bắt đầu nghiên cứu về plasma tại Đại học Greifswald (Đức) – trung tâm hàng đầu thế giới về công nghệ plasma.</p>
+                                        <br />
+                                        <p>Về nước năm 2011, anh muốn tạo ra nguồn plasma lạnh đầu tiên của mình. Không có tiền, không có phòng thí nghiệm, Hoàng Tùng nhờ Quỹ Phát triển khoa học và công nghệ quốc gia Việt Nam (Nafosted) để có thể ra mắt chiếc máy đầu tiên.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Shark đầu tư</div>
+                                        <p>Shark Hưng và Shark Việt đồng ý đầu tư 17 tỷ đồng cho 20% vốn cổ phần của công ty Công nghệ Plasma Việt Nam, trong đó số cổ phần quyền biểu quyết là 12% và 8% cổ phần ưu đãi cổ tức, kèm điều kiện nhà đầu tư sẽ giải ngân trước 6 tỷ, nếu đạt KPI sẽ tiếp tục giải ngân. Riêng Tiến sĩ Đỗ Hoàng Tùng phải nắm giữ 51% cổ phần Plasma, và trong ba năm các nhà sáng lập không được thoái vốn.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-4.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">ViralWorks - Quyên Lê</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-shark">
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-dung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Mạnh Dũng</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-hung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Phạm Thanh Hưng</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-phu.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Xuân Phú</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-dung.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Louis T.Nguyễn</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-linh.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Thái Thùy Linh</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Startup được cả 5 Shark đồng ý rót vốn, và số vốn thậm chí lên tới 300.000 USD, cao gấp 6 lần con số được đưa ra lúc đầu. Tuy nhiên, phần gọi vốn này đã khiến cộng đồng khởi nghiệp dấy lên nghi vấn "làm game", cho rằng Viralworks đã được Cyber Agent đầu tư trước khi lên Shark Tank gọi vốn bởi vì cả 5 sharks cùng tranh giành ViralWorks nhưng không hề đề cập đến các thông tin cơ bản về tình hình kinh doanh, lợi thế cạnh tranh hay cam kết KPI…</p>
+                                        <br />
+                                        <p><em>“Các bạn hãy cứ làm đi, làm những gì các bạn đam mê và tin là đúng đắn. Khi đối diện với những Shark mạnh mẽ và từng trải thì bản thân bạn phải là một chiến binh.”</em></p>
+                                        <p><strong>Lê Hồng Thảo Quyên</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>"Nếu bạn nào có ý tưởng thực sự tốt và thực sự cháy với nó, và tôi hiểu bạn thì tôi sẵn sàng đầu tư, không quan tâm đến doanh số, lợi nhuận của startup ấy"</em></p>
+                                        <p><strong>Shark Dũng</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Viralworks là nền tảng giúp kết nối nhãn hàng và những người có ảnh hưởng trong cộng đồng (các Influencer). Hệ thống hỗ trợ thực hiện chiến dịch marketing thông qua bài viết và chia sẻ của các Influencer trên những vùng ảnh hưởng của họ (tài khoản Facebook, Instagram cá nhân, kênh YouTube…), từ đó giúp quảng bá hình ảnh thương hiệu.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Lê Hồng Thảo Quyên sinh năm 1992, từng trở thành 1 trong số 8 đại sứ sinh viên Google tại Việt Nam (Google Student Ambassador – GSA) và là cựu giám đốc phát triển kinh doanh của METUB Network (mạng đa kênh YouTube số 1 Việt Nam).</p>
+                                        <br />
+                                        <p>Thảo Quyên là nhà đồng sáng lập kiêm CEO của Viralworks.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Shark đầu tư</div>
+                                        <p>Shark Dzung Nguyễn cam kết rót vốn 300.000 USD, trong đó 150.000 USD đổi lấy 15% cổ phần, 150.000 USD là khoản cho vay và chuyển đổi thành cổ phần trong 18 tháng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-5.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Tokai - Hà Cảnh</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-shark">
+                                        <div class="stws-item">
+                                            <div class="stwsi-avata">
+                                                <img src="../Shark-Tank-2018-Mobile/images/shark-viet.png" alt="">
+                                            </div>
+
+                                            <div class="stwsi-content">
+                                                <div class="stwsic-span">Shark đầu tư:</div>
+                                                <div class="stwsic-name">Nguyễn Thanh Việt</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Startup kinh doanh “nhà ma” tại Nhật Bản gây bão mạng vì… phi lý, được đánh giá là phi lý từ từ tỷ suất lợi nhuận cam kết (25%), từ số tiền mua 1 căn nhà ở Tokyo (chỉ mất 4 tỷ đồng) cho đến cả đối tượng mà startup này nhắm tới: Cộng đồng người Việt Nam tại Nhật, với giá cho thuê 100 triệu đồng/tháng đối với căn nhà có giá 4,5 tỷ đồng.</p>
+                                        <!--<p><em>“Khi mọi người tiếp xúc mình lần đầu tiên, họ sẽ ấn tượng: Ơ sao con bé này không biết gì. Nhưng sau khi làm việc với mình một thời gian, họ sẽ hiểu được đây là một lợi thế rất đặc biệt trong startup. Bởi vì trong startup bạn luôn luôn phải tìm hướng đi mới, khác lối mòn tư duy cũ”</em></p>-->
+                                        <!--<p><strong>Cathy Thảo Trần</strong></p>-->
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>"Em gọi vốn thế này bán giấy lấy tiền quá đơn giản. Các cá mập thành hết "cá kho"!</em></p>
+                                        <p><strong>Shark Phú</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Tokai hoạt động theo mô hình mua lại các căn nhà bỏ hoang không có người sử dụng tại Nhật Bản rồi cho thuê. Tokai mới thành lập vào tháng 12/2017 và đang chờ cấp giấy phép kinh doanh bất động sản tại Nhật nên chưa có doanh thu.</p>
+                                        <br />
+                                        <p>CEO Hà Cảnh cho biết, đối tượng khách được nhắm đến là người Việt Nam tại Nhật, cam kết lợi tức cho thuê có thể đạt 25%/năm. Cụ thể hơn, nếu chi 4,5 tỷ đồng mua nhà, lợi nhuận thu về 1,2 tỷ đồng/năm, chưa đầy 4 năm là hoàn đủ vốn.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Hà Cảnh đã có 5 năm sống và làm việc trong lĩnh vực bất động sản tại Nhật. Cô từng làm quản lý cho một công ty BĐS Việt Nam, sau 3,5 năm thì góp chung 30% cổ phần. Năm 2016 cô chuyển sang làm điều hành thị trường cho một tập đoàn BĐS của Trung Quốc. Sau khi "nhảy việc" lần nữa, cô quyết định thành lập công ty riêng.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Shark đầu tư</div>
+                                        <p>Shark Việt đầu tư 12 tỷ đồng đổi lấy 51% cổ phần với quan điểm “Không mạo hiểm thì không phải đầu tư"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-6.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Bún Nguyễn Bính</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Ôm tham vọng đưa bún Việt ra toàn thế giới, bà Nguyễn Bính lên Shark Tank Việt Nam kêu gọi 8 triệu USD cho 20% cổ phần công ty, tương đương mức định giá công ty lên đến 1.000 tỷ đồng – số vốn kỷ lục của Shark Tank 2018, khiến các "cá mập" choáng váng. Bà không nhận được đồng đầu tư nào khi chưa ra được lý lẽ và số liệu thuyết phục, đồng thời tính cách của bà Bính bị đánh giá là “khó làm việc”.</p>
+                                        <br />
+                                        <p><em>“Các Shark chỉ kiếm lợi nhuận là trên hết, không cần biết con người ra sao, không cần biết đến đời sống của người Việt Nam ra sao và càng không quan tâm đến nghề tổ hay truyền thống của Việt Nam. Tôi đánh giá, các Shark giàu nhưng tâm các Shark chưa tới"</em></p>
+                                        <p><strong>Bà Nguyễn Bính</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>"Công ty này có lời hay không Linh cũng không đầu tư"</em></p>
+                                        <p><strong>Shark Linh</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>CTCP Sản xuất Thương mại Dịch vụ Nguyễn Bính thành lập năm 2004, được bà Bính giới thiệu là đơn vị đầu tiên công nghiệp hóa bún ở Việt Nam. Bà Bính cho biết Nguyễn Bính có bí quyết riêng trong sản xuất bún sạch, nên không cần bảo quản, chỉ cần để nhiệt độ thường, khác hẳn với những loại bún "không tên" trôi nổi trên thị trường. Theo lời bà Bính, Nguyễn Bính được một công ty Thái định giá 100 tỷ đồng cách đây 3 năm.</p>
+                                        <!--<br />-->
+                                        <!--<p>Khi tham gia Shark Tank, Ohana có 40.000 người dùng, trong đó 5.000 người đã thuê nhà thông qua hệ thống. Trung bình tốc độ tăng trưởng hàng tháng là 40%. Số lượng người quay lại sử dụng dịch vụ lần thứ hai khoảng 30%/quý. Mỗi tháng, ứng dụng cập nhật tầm 400 căn nhà mới. Tuy nhiên, công ty vẫn chưa có doanh thu.</p>-->
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>16 tuổi, bà Nguyễn Bính rời quê hương vào TP.HCM để lập nghiệp với 50.000 đồng trong túi. Hai lần phá sản nhưng bà Bính vẫn nuôi chí quyết tâm gây dựng Nguyễn Bính thành doanh nghiệp sản xuất truyền thống bún và phở số 1 Việt Nam, đồng thời ấp ủ công thức bột gạo có khả năng đưa sợi bún của Việt Nam ra thế giới...</p>
+                                        <br />
+                                        <p>Bà Bính từng được đào tạo ngành cơ khí và thiết kế chi tiết máy. Do đó, bà nuôi ý tưởng công nghiệp hóa, tự động hóa một ngành nghề truyền thống như như ngành sản xuất bún.</p>
+
+                                        <br />
+
+                                        <!--<div class="swtd-subtitle">Shark đầu tư</div>-->
+                                        <!--<p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-7.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Smartlog - Trần Khiêm</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Anh Trần Khiêm, đại diện cho Smartlog và thay CEO lên Shark Tank gọi 116 tỷ đồng cho 20% cổ phần công ty. Khiêm ra về tay trắng và bị đánh giá là quá bay bổng, khi mà Smartlog không có gì đặc biệt.</p>
+                                        <br />
+                                        <p><em>“Thị trường Việt Nam là hiển nhiên trong tay em rồi. Việc của bên em là phải bung nhanh. Nếu Oracle có mang 1 tỷ USD qua đây, không thì em không nói chuyện.”</em></p>
+                                        <p><strong>Trần Khiêm, người đại diện gọi vốn.</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>“Trước khi nhìn lên trời thì phải nhìn xuống đất đã”</em></p>
+                                        <p><strong>Shark Việt</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Smartlog là công ty công nghệ, ứng dụng về quản lý kho bãi. Doanh thu của Smartlog năm 2017 là 4 tỷ đồng, lợi nhuận âm.</p>
+                                        <!--<br />-->
+                                        <p>Theo đánh giá của các Shark, Smartlog mới chỉ có phần mềm quản lý theo dõi hàng hóa (tracking), hoàn toàn chưa có phần bốc xếp, kho bãi. Công ty cũng chưa hoàn thiện con robot để vận chuyển, lấy hàng trong kho – một công cụ vốn cũng không hề mới.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Trần Khiêm được giới thiệu là giám đốc quản lý của Smartlog, đi gọi vốn thay cho người sếp là CEO Kurt Bình đang đi nghỉ mát. Trần Khiêm đã thất bại 10 lần khi startup và cũng nhảy việc rất nhiều lần. Qua nhiều công ty, phải “xoay vần” cho đến khi về Smartlog, Khiêm mới thấy đó là mục tiêu của đời mình.</p>
+                                        <br />
+                                        <p>Khiêm có 12 năm kinh nghiệm trong ngành FMCG và ngân hàng. Hồ sơ LinkedIn của anh cũng khá dài với một loạt kinh nghiệm từ nhân viên phụ trách kho vận cho P&G cho tới tập đoàn Gemadept.</p>
+                                        <br />
+                                        <p>Khiêm vốn là học sinh trường chuyên Hùng Vương, Tp. Pleiku, tỉnh Gia Lai. Năm 1999,  anh bắt đầu bằng cử nhân tại đại học bách khoa Tp. HCM.</p>
+
+                                        <!--<br />-->
+
+                                        <!--<div class="swtd-subtitle">Shark đầu tư</div>-->
+                                        <!--<p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-8.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Sprint Hero - Phạm Mỹ Mãn</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Dự án game Sprint Hero được giới thiệu là một game "ức chế muốn đập điện thoại" do Phạm Mỹ Mãn lập trình. Màn thuyết trình của nhà sáng lập bị các Shark nhận xét là “còn ức chế hơn nữa” khi Mỹ Mãn quá tự tin và vẽ ra những điều đao to búa lớn mặc dù kiến thức cũng như kinh nghiệm đều quá non nớt.</p>
+                                        <br />
+                                        <p><em>"Hiện nay trên thế giới không có ai thiết kế được với số lượng không giới hạn ngoài em. Các Shark nếu tin tưởng vào những người trẻ "dám nghĩ dám làm" thì hãy đầu tư cho em!"</em></p>
+                                        <p><strong>Phạm Mỹ Mãn</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>“Các Shark ở đây đều chưa ai làm được doanh nghiệp tỷ USD nên tốt nhất em đừng nghe các Shark. Nãy giờ ngồi nghe, anh thấy ức chế quá nên quyết định không đầu tư".</em></p>
+                                        <p><strong>Shark Hưng</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Công ty game Agritelecom do Phạm Mỹ Mãn sáng lập là công ty sở hữu trò chơi Sprint Hero do chính Mỹ Mãn xây dựng dựa trên nguyên lý môn bóng đá. Nhân vật chính của game sẽ vừa di chuyển, vừa dẫn bóng, tạo nên cảm giác hồi hộp, mong chờ nhưng ức chế mạnh.</p>
+                                        <br />
+                                        <p>Khi đến Shark Tank, Sprint Hero đã đẩy lên App Store được 6 tháng nhưng chỉ có 10.000 lượt tải, Mỹ Mãn vẫn kỳ vọng Sprint Hero có thể tạo ra doanh thu 5 triệu USD/tháng.</p>
+                                        <br />
+                                        <p>Sau khi tham gia Shark Tank, số lượt tải Sprint Hero đã tăng vọt. Tuy nhiên, đa số người chơi đều chỉ dành cho tựa game này 1 hoặc 2 sao.</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Xuất thân từ trường Đại học Bách Khoa TP.HCM, Mỹ Mãn tự tin khẳng định anh có thể thiết kế được hết các phần mềm về viễn thông, công nghệ thông tin có giá trị triệu USD.</p>
+                                        <br />
+                                        <p>Mỹ Mãn bắt đầu khởi nghiệp từ khi là sinh viên với việc thành lập hội Gia sư giỏi, sau đó ra trường thành lập công ty về phần mềm quản lý nha khoa. Tuy nhiên, công ty đã thất bại và tên anh bị ghi nợ tại chi cục thuế vì không có tiền đóng thuế.</p>
+
+                                        <!--<br />-->
+
+                                        <!--<div class="swtd-subtitle">Shark đầu tư</div>-->
+                                        <!--<p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-9.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">Startup bọt tuyết <br /> Nguyễn Trường Sơn</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Đây là Startup lớn tuổi nhất của Shark Tank 2018. Founder Nguyễn Trường Sơn (56 tuổi), đến kêu gọi 5 tỷ đồng đổi lấy 15% cổ phần. Nhà sáng lập có niềm đam mê sáng tạo sản phẩm nhưng bị đánh giá là chưa hiểu về kinh doanh.</p>
+                                        <br />
+                                        <p>Tuy không được Shark nào đầu tư nhưng chỉ 2 tuần sau khi chương trình phát sóng màn gọi vốn, ông Sơn bán được 500 sản phẩm – hơn một nửa số lượng tồn kho và bằng lượng hàng ông bán được từ khi thành lập công ty (3/2017)</p>
+                                        <!--<p><strong>Phạm Mỹ Mãn</strong></p>-->
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>"Đầu tư vào khởi nghiệp là đầu tư vào con người, như bác giống như một nhà nghiên cứu khoa học nhiều hơn. Tôi chưa thấy phẩm chất của một người thủ lĩnh.”</em></p>
+                                        <p><strong>Shark Thủy</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Công ty An Thịnh Phát là Công ty sản xuất các thiết bị tạo bọt tuyết hiện còn mới lạ trên thị trường.</p>
+                                        <br />
+                                        <p>Ngoài sản phẩm máy tạo bọt tuyết tắm gội tạo nên sự thích thú cho người tắm, An Thịnh Phát còn có các sản phẩm khác như bình xịt bọt tuyết nano bạc giúp tẩy rửa các vật dụng trong nhà bếp, nhà tắm, giày vải… Theo nhà sáng lập, chất tẩy rửa ưu việt được nhập khẩu từ châu Âu, nano bạc có tính diệt khuẩn cao không gây độc hại cho người tiêu dùng. </p>
+                                        <br/>
+                                        <p>Giá bán trung bình của bình xịt An Thịnh Phát là 65 nghìn đồng/chai. Nhà sáng lập tự tiếp thị, quảng bá sản phẩm.</p>
+                                        <!--<br />-->
+                                        <!--<p>Theo đánh giá của các Shark, Smartlog mới chỉ có phần mềm quản lý theo dõi hàng hóa (tracking), hoàn toàn chưa có phần bốc xếp, kho bãi. Công ty cũng chưa hoàn thiện con robot để vận chuyển, lấy hàng trong kho – một công cụ vốn cũng không hề mới.</p>-->
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Tốt nghiệp Đại học Bách Khoa, ông Nguyễn Trường Sơn từng công tác cho một số công ty cơ khí hóa chất. Sau đó, ông lấn sân sang mảng xuất nhập khẩu tại Mitsubishi, Siemens. Khi lớn tuổi, ông về làm giảng viên chuyên ngành Quản trị kinh doanh – Đại học Quốc tế Hồng Bàng.</p>
+                                        <!--<p>Bà Bính từng được đào tạo ngành cơ khí và thiết kế chi tiết máy. Do đó, bà nuôi ý tưởng công nghiệp hóa, tự động hóa một ngành nghề truyền thống như như ngành sản xuất bún.</p>-->
+
+                                        <!--<br />-->
+
+                                        <!--<div class="swtd-subtitle">Shark đầu tư</div>-->
+                                        <!--<p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stw-item swiper-slide">
+                    <div class="stw-wrapper">
+                        <img src="images/slide-10.png" alt="" class="stw-img-full abs-bottom animate stw-char" data-aos="fade" data-aos-duration="1000" data-aos-delay="600">
+
+                        <div class="stw-main">
+                            <img src="images/frame.png" alt="" class="stw-img-full">
+                            <img src="images/logo-slide.png" alt="" class="stw-img-full abs-top stw-logo">
+
+                            <div class="stw-content">
+                                <div class="stw-title">OWADA</div>
+
+                                <div class="stwc-main">
+                                    <div class="stw-detail">
+                                        <div class="swtd-subtitle">Điểm nhấn của startup</div>
+                                        <p>Bỏ chức vụ Phó tổng giám đốc ngân hàng, lãnh đạo phụ trách mảng bán lẻ cho nhiều ngân hàng lớn trong nước, Trịnh Minh Thảo sáng lập công ty Owada (Ồ quá đã) và đem đến Shark Tank 2018 sản phẩm thanh chà lưng bằng gốm.</p>
+                                        <br />
+                                        <p>Không đánh giá cao tiềm năng thị trường của sản phẩm, các Shark đều từ chối đầu tư. Riêng Shark Phú đề nghị đầu tư với hình thức khoản vay chuyển đổi thành cổ phần, nhưng Trịnh Minh Thảo đã từ chối vì muốn tìm người tâm đắc với sản phẩm.</p>
+                                        <br />
+                                        <p><em>“Nếu nghĩ làm sếp ngân hàng với công việc ổn định, lương cao thì sẽ không thể bỏ ngang - nhưng nghĩ tới những điều mới mẻ, thú vị mà mình tự tay làm, khởi nghiệp cũng hấp dẫn không kém!”</em></p>
+                                        <p><strong>Trịnh Minh Thảo</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Nhận xét ấn tượng của “Cá mập”</div>
+                                        <p><em>“Sản phẩm này có lẽ chỉ dùng cho người độc thân. Những người có người chà lưng giúp thì đâu cần”</em></p>
+                                        <p><strong>Shark Dũng</strong></p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Startup có gì?</div>
+                                        <p>Thanh chà gốm bằng lưng Owada được cho là xuất hiện lần đầu tiên tại thị trường Việt Nam, với chất liệu gốm truyền thống, giúp người dùng chà lưng sạch mà không tích tụ vi khuẩn. Thanh gốm chà lưng Owada có hình dáng chữ nhật, gắn cố định trong nhà tắm để người sử dụng chà lưng không cần dùng tay. Chất liệu bao phủ bề mặt sản phẩm là lớp cát biển xay nhuyễn, tạo độ nhám nhằm tẩy tế bào chết, matxa lưng.</p>
+                                        <br />
+                                        <p>Với giá bán 495.000 đồng/sp, Owada có lãi ngay khi bắt đầu kinh doanh. Tháng thứ nhất, công ty bán 617 sản phẩm. Trong tháng thứ hai, công ty tiêu thụ 676 sản phẩm và tháng thứ ba bán khoảng 710 sản phẩm. Tổng doanh số ba tháng đạt 1 tỷ đồng</p>
+
+                                        <br />
+
+                                        <div class="swtd-subtitle">Lãnh đạo</div>
+                                        <p>Trịnh Minh Thảo, đồng sáng lập và là giám đốc Owada từng làm Phó tổng giám đốc một ngân hàng, lãnh đạo phụ trách mảng bán lẻ cho nhiều ngân hàng lớn trong nước. Anh cũng  là tác giả của nhiều cuốn sách rất ăn khách trong ngành ngân hàng bán lẻ.</p>
+                                        <!--<p>Bà Bính từng được đào tạo ngành cơ khí và thiết kế chi tiết máy. Do đó, bà nuôi ý tưởng công nghiệp hóa, tự động hóa một ngành nghề truyền thống như như ngành sản xuất bún.</p>-->
+
+                                        <!--<br />-->
+
+                                        <!--<div class="swtd-subtitle">Shark đầu tư</div>-->
+                                        <!--<p>Shark Hồng Anh và Shark Dzung Nguyễn liên minh để đầu tư 1 tỷ đổi lấy 10%, 2,5 tỷ còn lại sẽ cho vay chuyển đổi, lãi suất 10% trong vòng 12 tháng tiếp theo và được giảm 25% cho vòng gọi vốn tiếp đó.</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="stw-nav">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="stwn-slide swiper-slide">
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-1.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Ohana</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-2.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Bống chè bưởi</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-3.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Công nghệ Plasma</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-4.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">ViralWorks</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-5.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Tokai</div>
+                        </div>
+                    </div>
+
+                    <div class="stwn-slide swiper-slide">
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-6.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Bún Nguyễn Bính</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-7.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Smartlog</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-8.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Sprint Hero</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-9.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Bọt tuyết</div>
+                        </div>
+
+                        <div class="stwn-item">
+                            <div class="stwn-avata">
+                                <img src="images/nav-10.png" alt="">
+                            </div>
+
+                            <div class="stwn-name">Owada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stwn-prev"><img src="images/arrow-up.png" alt=""> 5 Startup được <br /> đầu tư</div>
+            <div class="stwn-next"><img src="images/arrow-down.png" alt=""> 5 Startup không <br /> được đầu tư</div>
         </div>
     </div>
 </body>
