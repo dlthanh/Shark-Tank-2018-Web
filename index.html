@@ -17,11 +17,6 @@
     <script src="js/slimscroll.js"></script>
     <script>
         $(document).ready(function(){
-            var navigator = new Swiper('.stw-nav .swiper-container', {
-                speed: 600,
-                direction: 'vertical'
-            });
-
             var sharktank = new Swiper('.stw-container', {
                 speed: 600,
                 effect: 'fade',
@@ -59,6 +54,18 @@
                             nav.fadeIn(600);
                             nav.find('.stwn-item').removeClass('active');
                             nav.find('.stwn-item').eq(sharktank.activeIndex - 1).addClass('active');
+
+                            var navigator = new Swiper('.stw-nav .swiper-container', {
+                                speed: 600,
+                                direction: 'vertical'
+                            });
+
+                            $('.stwn-next').click(function() {
+                                navigator.slideTo(1, 600);
+                            });
+                            $('.stwn-prev').click(function() {
+                                navigator.slideTo(0, 600);
+                            });
                         }
 
                         if(sharktank.activeIndex >= 6) {
@@ -89,14 +96,7 @@
             nav.hide();
 
             $('.stwn-item').click(function() {
-                sharktank.slideTo($(this).index() + 1, 600);
-            })
-
-            $('.stwn-next').click(function() {
-                navigator.slideTo(1, 600);
-            })
-            $('.stwn-prev').click(function() {
-                navigator.slideTo(0, 600);
+                sharktank.slideTo(parseInt($(this).attr('stt')), 600);
             })
         })
     </script>
@@ -782,7 +782,7 @@
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="stwn-slide swiper-slide">
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="1">
                             <div class="stwn-avata">
                                 <img src="images/nav-1.png" alt="">
                             </div>
@@ -790,7 +790,7 @@
                             <div class="stwn-name">Ohana</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="2">
                             <div class="stwn-avata">
                                 <img src="images/nav-2.png" alt="">
                             </div>
@@ -798,7 +798,7 @@
                             <div class="stwn-name">Bống chè bưởi</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="3">
                             <div class="stwn-avata">
                                 <img src="images/nav-3.png" alt="">
                             </div>
@@ -806,7 +806,7 @@
                             <div class="stwn-name">Công nghệ Plasma</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="4">
                             <div class="stwn-avata">
                                 <img src="images/nav-4.png" alt="">
                             </div>
@@ -814,7 +814,7 @@
                             <div class="stwn-name">ViralWorks</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="5">
                             <div class="stwn-avata">
                                 <img src="images/nav-5.png" alt="">
                             </div>
@@ -824,7 +824,7 @@
                     </div>
 
                     <div class="stwn-slide swiper-slide">
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="6">
                             <div class="stwn-avata">
                                 <img src="images/nav-6.png" alt="">
                             </div>
@@ -832,7 +832,7 @@
                             <div class="stwn-name">Bún Nguyễn Bính</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="7">
                             <div class="stwn-avata">
                                 <img src="images/nav-7.png" alt="">
                             </div>
@@ -840,7 +840,7 @@
                             <div class="stwn-name">Smartlog</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="8">
                             <div class="stwn-avata">
                                 <img src="images/nav-8.png" alt="">
                             </div>
@@ -848,7 +848,7 @@
                             <div class="stwn-name">Sprint Hero</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="9">
                             <div class="stwn-avata">
                                 <img src="images/nav-9.png" alt="">
                             </div>
@@ -856,7 +856,7 @@
                             <div class="stwn-name">Bọt tuyết</div>
                         </div>
 
-                        <div class="stwn-item">
+                        <div class="stwn-item" stt="10">
                             <div class="stwn-avata">
                                 <img src="images/nav-10.png" alt="">
                             </div>
