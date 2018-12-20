@@ -17,6 +17,11 @@
     <script src="js/slimscroll.js"></script>
     <script>
         $(document).ready(function(){
+            var navigator = new Swiper('.stw-nav .swiper-container', {
+                speed: 600,
+                direction: 'vertical'
+            });
+
             var sharktank = new Swiper('.stw-container', {
                 speed: 600,
                 effect: 'fade',
@@ -46,19 +51,15 @@
                         if(sharktank.activeIndex == 0) {
                             nav.fadeOut();
                         } else {
+                            nav.css({
+                                'height': frame.height(),
+                                'right': ($(window).width() - frame.width()) / 2,
+                                'top': ($(window).height() - frame.height()) / 2 + 25
+                            });
                             nav.fadeIn(600);
                             nav.find('.stwn-item').removeClass('active');
                             nav.find('.stwn-item').eq(sharktank.activeIndex - 1).addClass('active');
                         }
-
-                        var navigator = new Swiper('.stw-nav .swiper-container', {
-                            speed: 600,
-                            direction: 'vertical',
-                            navigation: {
-                                nextEl: '.stwn-next',
-                                prevEl: '.stwn-prev'
-                            }
-                        })
 
                         if(sharktank.activeIndex >= 6) {
                             navigator.slideTo(1, 600)
@@ -84,13 +85,8 @@
             });
 
             var nav = $('.stw-nav'),
-                frame = $('.stw-main');
+                frame = $('.stw-main').eq(0);
             nav.hide();
-            nav.css({
-                'height': frame.height(),
-                'right': ($(window).width() - frame.width()) / 2,
-                'top': ($(window).height() - frame.height()) / 2 + 25
-            });
 
             $('.stwn-item').click(function() {
                 sharktank.slideTo($(this).index() + 1, 600);
